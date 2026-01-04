@@ -1250,22 +1250,17 @@ Voici le code PlantUML reconstitué. C'est un diagramme dense qui montre la rich
 @startuml
 ' Titre du diagramme
 title "Sous-Package : Pratiques Agricoles"
-
 ' Style
 skinparam classAttributeIconSize 0
 skinparam shadowing false
 skinparam packageStyle rectangle
-
 package "Pratiques Agricoles" {
-
     abstract class Intervention {
         + Semaine : integer
     }
-
     class "Protection Phytosanitaire" extends Intervention {
         + "Stade d'Intervention" : string
     }
-
     class "Intervention Chimique" extends "Protection Phytosanitaire" {
         + "Type d'Application" : string
         + Pourcentage Surface Traitee : real
@@ -1274,28 +1269,23 @@ package "Pratiques Agricoles" {
     class "Intervention Alternative" extends "Protection Phytosanitaire" {
         + "Type d'Intervention" : string
     }
-
     class "Epandage Fertilisant" extends Intervention {
         + Produit : string
         + Dose : real
         + Unite : string
         + "Stade d'Intervention" : string
     }
-
     class Irrigation extends Intervention {
         + Dose : real
         + Unite : string
         + Materiel utilisee : string
         + Type Pompage : string
     }
-
     class "Autre Intervention" extends Intervention {
     }
-
     class "Type de Travaux" {
         + Libelle : string
     }
-
     class "Type de Materiel" {
         + Nom : string
     }
@@ -1304,12 +1294,10 @@ package "Pratiques Agricoles" {
         + Nom : string
         + "Type d'action" : string
     }
-
     class "Specialite Commerciale" extends "Produit Chimique" {
         + Mode de Penetration : string
         + Commentaire : string
     }
-
     class "Matiere Active" extends "Produit Chimique" {
         + Famille : string
         + Solubilite : real
@@ -1329,27 +1317,23 @@ package "Pratiques Agricoles" {
         + Dose homologuee : real
         + Unite : string
     }
-
     ' --- Relations ---
     
     "Autre Intervention" "*" -- "1" "Type de Travaux"
     "Autre Intervention" "*" -- "*" "Type de Materiel"
-
     "Intervention Chimique" "*" -- "1" "Produit Chimique" : "applique"
     
     "Specialite Commerciale" "1" -- "1..*" "Matiere Active" : "est composée de"
-    (Specialite Commerciale, "Matiere Active") .. Concentration
+    "Specialite Commerciale" .. Concentration
+    "Matiere Active" .. Concentration
     
     "Dossier d'homologation" "1" -- "1" "Produit Chimique"
 }
-
 ' --- Relations avec packages externes ---
 class Parcelle
 class Culture
-
 Parcelle "*" -- "*" Intervention : "subit"
 "Dossier d'homologation" "1" -- "1..*" Culture : "cible"
-
 @enduml
 ```
 
